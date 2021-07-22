@@ -1,0 +1,25 @@
+@import "../../assets/styles/variables.style";
+
+.main-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  background-color: $secondary-color-dark;
+  height: 5rem;
+  padding: 0 2rem;
+
+  &__items {
+    a {
+      padding: 0.25rem 0.5em;
+      font-weight: bold;
+
+      &:hover,
+      &:active,
+      &.active {
+        color: $primary-color;
+      }
+    }
+  }
+}

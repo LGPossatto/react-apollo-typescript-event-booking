@@ -1,0 +1,65 @@
+@import "../../assets/styles/variables.style";
+
+.auth-form {
+  width: 50rem;
+  max-width: 80%;
+  margin: 5rem auto;
+
+  .form-error {
+    min-height: 25px;
+  }
+
+  .form-control {
+    input,
+    label {
+      width: 100%;
+    }
+
+    input {
+      margin-bottom: 2rem;
+    }
+
+    label {
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+    }
+  }
+
+  .form-actions {
+    .btn-login,
+    .btn-sign {
+      cursor: pointer;
+      border: none;
+
+      &:hover {
+        opacity: 0.85;
+      }
+    }
+
+    .btn-login {
+      background-color: $secondary-color;
+      margin-bottom: 0.75rem;
+      padding: 0.5rem 1.5rem;
+
+      box-shadow: 1px 1px 5px rgba($black, 0.25);
+      border-radius: 0.75rem;
+
+      font-weight: 700;
+
+      &:active {
+        background-color: $secondary-color-dark;
+        box-shadow: 1px 1px 5px rgba($black, 0.5);
+        color: $primary-color;
+      }
+    }
+
+    .btn-sign {
+      background: none;
+      text-decoration: underline;
+
+      &:active {
+        color: $secondary-color;
+      }
+    }
+  }
+}
