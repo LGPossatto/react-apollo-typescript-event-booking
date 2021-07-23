@@ -1,8 +1,11 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import "./auth.style.scss";
+import loginQuery from "../../graphql/queries/loginQuery";
 
 const Auth = () => {
+  const [isLogin, setIsLogin] = useState(true);
+
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const errordRef = useRef<HTMLDivElement>(null);
@@ -19,31 +22,14 @@ const Auth = () => {
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
-    const requestBody = {
-      query: `
-        query {
-          login(userInput: {
-            email: "${email}",
-            password: "${password}"
-        }){
-          userId
-          token
-          tokenExpiration
-        }
-      }`,
-    };
-
     if (email && password) {
-      const res = await fetch("http://localhost:5000/graphql", {
-        method: "POST",
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-
-      console.log(data);
+      if (isLogin) {
+        console.log("login");
+        const data = await loginQuery(email, password);
+        console.log(data);
+      } else {
+        console.log("sign up");
+      }
     } else {
       showError("Please leave no enpty field!");
     }
@@ -75,14 +61,14 @@ const Auth = () => {
           type="submit"
           className="btn-login fs-med fc-light"
         >
-          Login
+          {isLogin ? "Login" : "Sing Up"}
         </button>
         <button
-          onClick={() => null}
+          onClick={() => setIsLogin(!isLogin)}
           type="button"
           className="btn-sign fs-small fc-primary"
         >
-          Sing Up
+          {isLogin ? "Sing Up" : "Login"}
         </button>
       </div>
     </form>
