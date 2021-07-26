@@ -1,15 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  useQuery,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import "./assets/styles/globals.style.scss";
+import "./assets/styles/components.style.scss";
 import App from "./App.component";
+import UserState from "./context/user/UserState";
 
 const client = new ApolloClient({
   uri: "http://localhost:5000/graphql",
@@ -18,9 +14,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <UserState>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </UserState>
   </ApolloProvider>,
   document.getElementById("root")
 );

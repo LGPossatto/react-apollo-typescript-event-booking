@@ -1,9 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
+
+import userContext from "../../context/user/userContext";
 
 import "./auth.style.scss";
 import loginQuery from "../../graphql/queries/loginQuery";
+import createUserMutation from "../../graphql/queries/createUserMutation";
 
 const Auth = () => {
+  const { loginUser } = useContext(userContext);
   const [isLogin, setIsLogin] = useState(true);
 
   const emailRef = useRef<HTMLInputElement>(null);
@@ -14,22 +18,47 @@ const Auth = () => {
     errordRef.current!.innerText = msg;
   };
 
+  const clearError = () => {
+    errordRef.current!.innerText = "";
+  };
+
+  const handleLogin = async (
+    email: string,
+    password: string,
+    isLogin: boolean
+  ) => {
+    const fetchLogin = async () => {
+      const data = await loginQuery(email, password);
+      if (data.errors) {
+        showError(data.errors[0].message);
+      } else {
+        loginUser(data.data.login);
+      }
+    };
+
+    if (isLogin) {
+      fetchLogin();
+    } else {
+      const data = await createUserMutation(email, password);
+      if (data.errors) {
+        showError("Email already registered!");
+      } else if (data.data.createUser) {
+        fetchLogin();
+      }
+    }
+  };
+
   const handleSubmit = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    clearError();
 
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
     if (email && password) {
-      if (isLogin) {
-        console.log("login");
-        const data = await loginQuery(email, password);
-        console.log(data);
-      } else {
-        console.log("sign up");
-      }
+      handleLogin(email, password, isLogin);
     } else {
       showError("Please leave no enpty field!");
     }
@@ -59,7 +88,7 @@ const Auth = () => {
         <button
           onClick={handleSubmit}
           type="submit"
-          className="btn-login fs-med fc-light"
+          className="btn-component fs-med fc-light"
         >
           {isLogin ? "Login" : "Sing Up"}
         </button>

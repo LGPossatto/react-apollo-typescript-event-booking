@@ -1,0 +1,42 @@
+@import "./variables.style";
+
+.btn-component {
+  cursor: pointer;
+
+  background-color: $secondary-color;
+  margin: 1rem;
+  padding: 0.5rem 1.5rem;
+
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: 1px 1px 5px rgba($black, 0.25);
+
+  font-weight: 700;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    background-color: $secondary-color-dark;
+    box-shadow: 1px 1px 5px rgba($black, 0.5);
+  }
+}
+
+.btn-success {
+  background-color: $success-color;
+
+  &:active {
+    background-color: $success-color-dark;
+    box-shadow: 1px 1px 5px rgba($black, 0.5);
+  }
+}
+
+.btn-danger {
+  background-color: $danger-color;
+
+  &:active {
+    background-color: $danger-color-dark;
+    box-shadow: 1px 1px 5px rgba($black, 0.5);
+  }
+}
