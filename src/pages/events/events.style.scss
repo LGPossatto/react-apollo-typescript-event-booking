@@ -1,8 +1,24 @@
+@import "../../assets/styles/variables.style";
+
 .events {
   text-align: center;
   padding: 2.5rem;
 
   & > h3 {
     margin: 1rem 0;
+  }
+
+  &__list {
+    width: 100%;
+
+    .list-item {
+      width: 300px;
+      padding: 1rem;
+      margin: 1rem;
+
+      border: 1px solid $secondary-color;
+
+      text-align: left;
+    }
   }
 }

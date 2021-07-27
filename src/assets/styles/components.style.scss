@@ -1,5 +1,8 @@
 @import "./variables.style";
 
+//-----------------------------------------------------------------//
+//------------------------------ BTN ------------------------------//
+//-----------------------------------------------------------------//
 .btn-component {
   cursor: pointer;
 
@@ -39,4 +42,33 @@
     background-color: $danger-color-dark;
     box-shadow: 1px 1px 5px rgba($black, 0.5);
   }
+}
+
+//-----------------------------------------------------------------//
+//----------------------------- FORM ------------------------------//
+//-----------------------------------------------------------------//
+.input-component {
+  label,
+  input,
+  textarea {
+    width: 100%;
+  }
+
+  label {
+    margin-bottom: 0.25rem;
+    font-weight: 700;
+  }
+
+  input,
+  textarea {
+    margin-bottom: 2rem;
+  }
+
+  textarea {
+    resize: none;
+  }
+}
+
+.error-component {
+  min-height: 25px;
 }

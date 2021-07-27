@@ -3,8 +3,9 @@ import { useRef, useState, useContext } from "react";
 import userContext from "../../context/user/userContext";
 
 import "./auth.style.scss";
-import loginQuery from "../../graphql/queries/loginQuery";
-import createUserMutation from "../../graphql/queries/createUserMutation";
+import { clearError, showError } from "../../assets/scripts/utils.script";
+import loginQuery from "../../graphql/queries/login.query";
+import createUserMutation from "../../graphql/mutations/createUser.mutation";
 
 const Auth = () => {
   const { loginUser } = useContext(userContext);
@@ -14,14 +15,6 @@ const Auth = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const errordRef = useRef<HTMLDivElement>(null);
 
-  const showError = (msg: string) => {
-    errordRef.current!.innerText = msg;
-  };
-
-  const clearError = () => {
-    errordRef.current!.innerText = "";
-  };
-
   const handleLogin = async (
     email: string,
     password: string,
@@ -30,7 +23,7 @@ const Auth = () => {
     const fetchLogin = async () => {
       const data = await loginQuery(email, password);
       if (data.errors) {
-        showError(data.errors[0].message);
+        showError(errordRef, data.errors[0].message);
       } else {
         loginUser(data.data.login);
       }
@@ -41,7 +34,7 @@ const Auth = () => {
     } else {
       const data = await createUserMutation(email, password);
       if (data.errors) {
-        showError("Email already registered!");
+        showError(errordRef, "Email already registered!");
       } else if (data.data.createUser) {
         fetchLogin();
       }
@@ -52,7 +45,7 @@ const Auth = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    clearError();
+    clearError(errordRef);
 
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
@@ -60,20 +53,20 @@ const Auth = () => {
     if (email && password) {
       handleLogin(email, password, isLogin);
     } else {
-      showError("Please leave no enpty field!");
+      showError(errordRef, "Please leave no enpty field!");
     }
   };
 
   return (
     <form className="auth-form">
-      <div className="form-error fs-small fc-danger" ref={errordRef}></div>
-      <div className="form-control">
+      <div className="error-component fs-small fc-danger" ref={errordRef}></div>
+      <div className="input-component">
         <label htmlFor="email" className="fs-med">
           E-Mail
         </label>
         <input type="email" id="email" className="fs-med" ref={emailRef} />
       </div>
-      <div className="form-control">
+      <div className="input-component">
         <label htmlFor="password" className="fs-med">
           Password
         </label>

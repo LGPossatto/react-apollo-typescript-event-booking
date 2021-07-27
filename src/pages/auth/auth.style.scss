@@ -5,26 +5,6 @@
   max-width: 80%;
   margin: 5rem auto;
 
-  .form-error {
-    min-height: 25px;
-  }
-
-  .form-control {
-    input,
-    label {
-      width: 100%;
-    }
-
-    input {
-      margin-bottom: 2rem;
-    }
-
-    label {
-      margin-bottom: 0.25rem;
-      font-weight: 700;
-    }
-  }
-
   .form-actions {
     .btn-sign {
       cursor: pointer;
