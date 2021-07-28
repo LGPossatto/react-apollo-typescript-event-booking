@@ -1,13 +1,15 @@
 import { useContext, useRef, useState, useEffect } from "react";
 
 import userContext from "../../context/user/userContext";
+import eventsContext from "../../context/events/eventsContext";
 
-import "./events.style.scss";
-import Modal from "../../components/modal/Modal.component";
 import { clearError, showError } from "../../assets/scripts/utils.script";
 import createEventMutation from "../../graphql/mutations/createEvent.mutation";
 import eventsQuery from "../../graphql/queries/events.query";
-import eventsContext from "../../context/events/eventsContext";
+
+import "./events.style.scss";
+import Modal from "../../components/modal/Modal.component";
+import EventsList from "../../components/eventsList/EventsList.component";
 
 const Events = () => {
   const [createEvent, setCreateEvent] = useState(false);
@@ -130,17 +132,7 @@ const Events = () => {
           </button>
         </>
       )}
-      {events && (
-        <ul className="events__list flex jc-c flex-fw-w">
-          {events.map(({ _id, title }) => {
-            return (
-              <li key={_id} className="list-item">
-                <h3 className="fs-med"> {title} </h3>
-              </li>
-            );
-          })}
-        </ul>
-      )}
+      {events && <EventsList events={events}></EventsList>}
     </div>
   );
 };
