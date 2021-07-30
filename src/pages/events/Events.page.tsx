@@ -10,9 +10,11 @@ import eventsQuery from "../../graphql/queries/events.query";
 import "./events.style.scss";
 import Modal from "../../components/modal/Modal.component";
 import EventsList from "../../components/eventsList/EventsList.component";
+import Spinner from "../../components/spinner/Spinner.component";
 
 const Events = () => {
   const [createEvent, setCreateEvent] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useContext(userContext);
   const { events, updateEvents, addEvent } = useContext(eventsContext);
 
@@ -58,8 +60,10 @@ const Events = () => {
 
   const getEvents = async () => {
     try {
+      setIsLoading(true);
       const events = (await eventsQuery()).data;
       updateEvents(events.events);
+      setIsLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -69,6 +73,10 @@ const Events = () => {
     getEvents();
     // eslint-disable-next-line
   }, []);
+
+  if (isLoading) {
+    return <Spinner></Spinner>;
+  }
 
   return (
     <div className="events">

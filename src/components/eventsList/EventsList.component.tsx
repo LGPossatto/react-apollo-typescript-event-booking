@@ -10,12 +10,14 @@ export interface IEventsList {
 const EventsList = ({ events }: { events: TEvents[] }) => {
   return (
     <ul className="events-list flex jc-c flex-fw-w">
-      {events.map(({ _id, title, description, price }) => {
+      {events.map(({ _id, title, description, price, date, creator }) => {
         return (
           <EventsItem
+            userId={creator._id}
             key={_id}
             title={title}
             price={price}
+            date={date}
             description={description}
           ></EventsItem>
         );
