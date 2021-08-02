@@ -1,25 +1,32 @@
-import { FC, useContext } from "react";
+import { useContext, FC, Dispatch, SetStateAction } from "react";
+
+import userContext from "../../../context/user/userContext";
+import eventsContext from "../../../context/events/eventsContext";
 
 import "./eventsItem.style.scss";
-import crownImg from "../../assets/images/crown.png";
-import userContext from "../../context/user/userContext";
+import crownImg from "../../../assets/images/crown.png";
 
 export interface IEventsItem {
-  userId: string;
+  eventId: string;
   title: string;
   price: number;
   date: Date;
   description: string;
+  setBookEvent: Dispatch<SetStateAction<boolean>>;
+  userId: string;
 }
 
 const EventsItem: FC<IEventsItem> = ({
-  userId,
+  eventId,
   title,
   description,
   price,
   date,
+  setBookEvent,
+  userId,
 }) => {
   const { user } = useContext(userContext);
+  const { selectEvent } = useContext(eventsContext);
 
   return (
     <li className="events-item">
@@ -29,7 +36,13 @@ const EventsItem: FC<IEventsItem> = ({
           {user?.userId === userId ? (
             <img src={crownImg} alt="crown" />
           ) : (
-            <button className="btn-component">
+            <button
+              className="btn-component"
+              onClick={() => {
+                selectEvent(eventId);
+                setBookEvent(true);
+              }}
+            >
               <span></span>
               <span></span>
             </button>

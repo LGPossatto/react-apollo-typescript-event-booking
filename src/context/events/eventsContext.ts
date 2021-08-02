@@ -1,16 +1,22 @@
 import { createContext } from "react";
-import { TEvents } from "../../graphql/types";
+import { TEvent } from "../../graphql/types";
 
 export interface IContext {
-  events: TEvents[];
-  updateEvents: (events: TEvents[]) => void;
-  addEvent: (event: TEvents) => void;
+  events: TEvent[];
+  updateEvents: (events: TEvent[]) => void;
+  addEvent: (event: TEvent) => void;
+  selectedEvent: TEvent | null;
+  selectEvent: (eventId: string) => void;
+  deselectEvent: () => void;
 }
 
 const defaultUser: IContext = {
   events: [],
+  selectedEvent: null,
   updateEvents: (events) => {},
   addEvent: (event) => {},
+  selectEvent: (eventId: string) => {},
+  deselectEvent: () => {},
 };
 
 const eventsContext = createContext(defaultUser);

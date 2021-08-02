@@ -9,7 +9,7 @@ export type TUser = {
   tokenExpiration: number;
 };
 
-export type TEvents = {
+export type TEvent = {
   _id: string;
   title: string;
   date: Date;
