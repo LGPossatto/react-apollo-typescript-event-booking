@@ -1,9 +1,9 @@
 import { Dispatch, FC, SetStateAction } from "react";
 
-import { TEvent } from "../../graphql/types";
+import { TEvent } from "../../../graphql/types";
 
 import "./eventsList.style.scss";
-import EventsItem from "./eventsItem/EventsItem.component";
+import EventsItem from "../eventsItem/EventsItem.component";
 
 export interface IEventsList {
   events: TEvent[];

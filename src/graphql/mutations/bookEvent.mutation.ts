@@ -1,3 +1,5 @@
+import { fetchData } from "../../assets/scripts/utils.script";
+
 const bookEventMutation = async (eventId: string, token: string) => {
   try {
     const mutationBody = {
@@ -20,16 +22,7 @@ const bookEventMutation = async (eventId: string, token: string) => {
       `,
     };
 
-    const res = await fetch("http://localhost:5000/graphql", {
-      method: "POST",
-      body: JSON.stringify(mutationBody),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    });
-    const data = await res.json();
-
+    const data = await fetchData(mutationBody, token);
     return data;
   } catch (err) {
     console.error(err);

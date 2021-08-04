@@ -8,7 +8,7 @@ import eventsQuery from "../../graphql/queries/events.query";
 import "./events.style.scss";
 import ModalCreateEvents from "../../components/modal/modal-create-events/ModalCreateEvents.component";
 import ModalBooking from "../../components/modal/modal-booking/ModalBooking.component";
-import EventsList from "../../components/eventsList/EventsList.component";
+import EventsList from "../../components/events/eventsList/EventsList.component";
 import Spinner from "../../components/spinner/Spinner.component";
 
 const Events = () => {

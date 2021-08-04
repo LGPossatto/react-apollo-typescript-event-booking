@@ -1,3 +1,5 @@
+import { fetchData } from "../../assets/scripts/utils.script";
+
 const loginQuery = async (email: string, password: string) => {
   const queryBody = {
     query: `
@@ -11,15 +13,7 @@ const loginQuery = async (email: string, password: string) => {
     `,
   };
 
-  const res = await fetch("http://localhost:5000/graphql", {
-    method: "POST",
-    body: JSON.stringify(queryBody),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  const data = await res.json();
-
+  const data = await fetchData(queryBody);
   return data;
 };
 
