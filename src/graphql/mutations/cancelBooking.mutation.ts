@@ -13,7 +13,6 @@ const cancelBookingMutation = async (bookingId: string, token: string) => {
     };
 
     const data = await fetchData(mutationBody, token);
-    console.log(data);
     return data;
   } catch (err) {
     console.error(err);
